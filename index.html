@@ -15,6 +15,13 @@
 </head>
 
 <body>
+  <!-- Scroll Progress -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- Back To Top -->
+  <button id="backToTop" class="back-to-top" aria-label="Back to top">
+    ↑
+  </button>
   <div class="ambient ambient-one"></div>
   <div class="ambient ambient-two"></div>
   <header class="header">
@@ -28,14 +35,20 @@
       <a href="#resume">Resume</a>
       <a href="#contact">Contact</a>
     </nav>
+
     <a class="nav-cta" href="#contact">Let's talk <span>↗</span></a>
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to light mode" title="Switch theme">
+      ☀️
+    </button>
   </header>
 
   <main>
     <section class="hero section" id="home">
       <div class="hero-copy">
         <div class="eyebrow"><span class="pulse"></span> AVAILABLE FOR INTERNSHIP · FÈS, MOROCCO</div>
-        <p class="hero-kicker">HELLO, I'M</p>
+        <p class="hero-role">
+          I'm a <span id="typing-text"></span><span class="typing-cursor">|</span>
+        </p>
         <h1>Abdellah <span>Htet.</span></h1>
         <h2>Full Stack <span class="gradient-text">Web Developer</span></h2>
         <p class="hero-description">I build clean, responsive and user-friendly web experiences.

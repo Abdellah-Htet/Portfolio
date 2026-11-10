@@ -41,7 +41,7 @@ document.querySelectorAll("[data-project]").forEach(button => {
     if (project.github) {
       modalGithub.href = project.github;
       modalGithub.classList.remove("disabled");
-      modalGithubGithubText = "View on GitHub ↗";
+      modalGithub.textContent = "View on GitHub ↗";
       modalGithub.textContent = modalGithubGithubText;
       modalGithubNote.textContent = "";
     } else {
@@ -86,4 +86,108 @@ contactForm.addEventListener("submit", async event => {
     submitButton.disabled = false;
     submitButton.innerHTML = 'Send message <span>↗</span>';
   }
+});
+// Dark / Light Mode
+const themeToggle = document.getElementById("themeToggle");
+const savedTheme = localStorage.getItem("portfolio-theme") || "dark";
+
+document.documentElement.setAttribute("data-theme", savedTheme);
+updateThemeButton();
+
+themeToggle.addEventListener("click", () => {
+    const currentTheme = document.documentElement.getAttribute("data-theme");
+    const newTheme = currentTheme === "dark" ? "light" : "dark";
+
+    document.documentElement.setAttribute("data-theme", newTheme);
+    localStorage.setItem("portfolio-theme", newTheme);
+
+    updateThemeButton();
+});
+
+function updateThemeButton() {
+    const currentTheme = document.documentElement.getAttribute("data-theme");
+
+    themeToggle.textContent = currentTheme === "dark" ? "☀️" : "🌙";
+    themeToggle.setAttribute(
+        "aria-label",
+        currentTheme === "dark" ? "Switch to light mode" : "Switch to dark mode"
+    );
+}
+
+const typingText = document.getElementById("typing-text");
+
+const roles = [
+    "Full Stack Developer",
+    "Web Developer",
+    "Full Stack Web Developer",
+    
+];
+
+let roleIndex = 0;
+let charIndex = 0;
+let isDeleting = false;
+
+function typeEffect() {
+
+    const currentRole = roles[roleIndex];
+
+    if (isDeleting) {
+        charIndex--;
+    } else {
+        charIndex++;
+    }
+
+    typingText.textContent = currentRole.substring(0, charIndex);
+
+    let speed = isDeleting ? 50 : 100;
+
+    if (!isDeleting && charIndex === currentRole.length) {
+        speed = 1500;
+        isDeleting = true;
+    }
+
+    else if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        roleIndex = (roleIndex + 1) % roles.length;
+        speed = 500;
+    }
+
+    setTimeout(typeEffect, speed);
+}
+
+typeEffect();
+
+// Scroll Progress & Back To Top
+
+const scrollProgress = document.getElementById("scrollProgress");
+const backToTop = document.getElementById("backToTop");
+
+window.addEventListener("scroll", () => {
+
+    // Calculate Scroll Progress
+    const scrollTop = window.scrollY;
+
+    const documentHeight =
+        document.documentElement.scrollHeight -
+        document.documentElement.clientHeight;
+
+    const progress = (scrollTop / documentHeight) * 100;
+
+    scrollProgress.style.width = progress + "%";
+
+    // Show / Hide Back To Top
+    if (scrollTop > 300) {
+        backToTop.classList.add("show");
+    } else {
+        backToTop.classList.remove("show");
+    }
+
+});
+
+// Back To Top Click
+backToTop.addEventListener("click", () => {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
 });
